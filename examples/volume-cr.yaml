@@ -1,0 +1,7 @@
+apiVersion: ecs.easystack.io/v1
+kind: Volume
+metadata:
+  name: volume-cr
+spec:
+    Size: 1
+    VolumeType: hdd

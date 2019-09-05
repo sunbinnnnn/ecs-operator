@@ -1,0 +1,47 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: add-on-cluster-default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: default
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecs-operator
+  labels:
+    app: ecs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecs
+  template:
+    metadata:
+      name: ecs-operator-pod
+      labels:
+        app: ecs
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: node-5
+      containers:
+      - image: hub.easystack.io/captain/ecs-operator:v1.0.0
+        imagePullPolicy: IfNotPresent
+        name: ecs-operator-container
+        command:
+        - /ecs-operator
+        volumeMounts:
+        - mountPath: /etc/openstack/clouds.yaml
+          name: openstack-cloud
+      volumes:
+      - hostPath:
+          path: /etc/openstack/clouds.yaml
+        name: openstack-cloud

@@ -1,0 +1,9 @@
+apiVersion: ecs.easystack.io/v1
+kind: Instance
+metadata:
+  name: test-crd-control
+spec:
+    FlavorRef: 11
+    ImageRef: 76940d28-ccaa-49be-8dff-26658546b3a0 
+    Network:
+      UUID: 409a967b-061b-49d5-898e-6812e679379c

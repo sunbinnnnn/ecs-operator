@@ -1,0 +1,10 @@
+clouds:
+  ecsv5:
+    auth:
+      username: drone
+      password: saNXQdub
+      user_domain_name: Default
+      project_domain_name: Default
+      project_name: service
+      auth_url: http://keystone-api.openstack.svc.cluster.local/v3
+    region_name: RegionOne
